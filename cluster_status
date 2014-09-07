@@ -1,0 +1,18 @@
+#!/bin/bash
+
+. .setup
+
+config="`ccurl $REST_URL/info/config`"
+echo CONFIG
+ppjson "$config"
+echo
+
+services="`ccurl $REST_URL/info/services`"
+echo SERVICES
+ppjson "$services"
+echo
+
+members="`ccurl $REST_URL/info/members`"
+echo MEMBERS
+ppjson "$members"
+echo

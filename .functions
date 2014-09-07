@@ -1,0 +1,22 @@
+#/bin/bash
+
+REST_PROTO=http
+REST_URL=$REST_PROTO://$REST_LOCAL_HOST:$REST_LOCAL_PORT/$REST_CONTEXT_PATH
+
+# CURL INVOCATION
+CURLPARAMS="-#"
+
+ccurl() {
+	curl $CURLPARAMS $@
+}
+
+# pretty-print a JSON string
+# $1 JSON string to pretty-print
+ppjson() {
+	if test -z "$1"; then
+		echo NOTHING
+	else
+		node -e "console.log(JSON.stringify(JSON.parse(process.argv[1]), null, '\t'));" "$1"
+	fi
+}
+

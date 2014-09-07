@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# $1 = executable name
+check_executable() {
+	path="`which $1`"
+	if test -z "$path"; then
+		echo "ERROR:	executable '$1' not detected on the system"
+	else
+		echo "OK:	executable '$1' found at '$path'"
+	fi
+}
+
+check_executable 'curl'
+check_executable 'node'

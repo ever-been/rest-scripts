@@ -1,0 +1,45 @@
+#!/bin/bash
+
+. .setup
+
+PID_FILE=.tunnel_pid
+
+print_usage() {
+	echo "USAGE:"
+	echo "`basename $0` (bind|unbind)"
+}
+
+if test $# -lt 1; then
+	echo "Not enough arguments"
+	print_usage
+	exit 1
+fi
+
+case $1 in
+	bind)
+		ssh -C2qNn -L$REST_LOCAL_PORT:$REST_LOCAL_HOST:$REST_REMOTE_PORT $REST_REMOTE_HOST &
+		echo $! > $PID_FILE
+		;;
+	unbind)
+		if test -f $PID_FILE; then
+			PID="`cat $PID_FILE`"
+			if test -z "`ps -hp $PID`"; then
+				echo "Tunnel not running"
+				exit 1
+			else
+				kill $PID
+				if test -z "`ps -hp $PID`"; then
+					echo "Tunnel terminated"
+				fi
+			fi
+		else
+			echo "Tunnel not running"
+			exit 1
+		fi
+		;;
+	*)
+		echo "Unrecognized argument '$1'"
+		print_usage
+		exit 1
+		;;
+esac

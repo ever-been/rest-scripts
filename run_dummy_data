@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. .setup
+
+result="`ccurl -T /dev/null $REST_URL/task/cz.everbeen.processing/dummy-data-generator/$DATA_PROCESSOR_VERSION/tds:dummyData.td.xml`"
+ppjson "$result"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. .setup
+
+if test $# -ne 1; then
+	echo "Invalid number of parameters: $#"
+	echo "Usage: `basename $0` TASK_ID"
+fi
+
+taskState="`ccurl $REST_URL/task/$1`"
+ppjson "$taskState"
+taskLogs="`ccurl $REST_URL/task/$1/logs`"
+ppjson "$taskLogs"

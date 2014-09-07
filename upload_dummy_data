@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. .setup
+
+BPK=$DATA_PROCESSOR_HOME/dummy-data-generator/target/dummy-data-generator-1.0.0-SNAPSHOT.bpk
+
+if test -f $BPK; then
+	result="`ccurl -T $BPK $REST_URL/bpk`"
+	ppjson "$result"
+else
+	echo "Package '$BPK' not found"
+fi

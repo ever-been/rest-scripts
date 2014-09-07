@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. .setup
+
+tasks="`ccurl $REST_URL/task`"
+ppjson "$tasks"
